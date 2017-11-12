@@ -36,7 +36,6 @@ namespace MagicEastern.CachedFuncBase
                 {
                     TResult obj;
                     TKey key = keySelector(input);
-                    Func<TKey, TResult> addFunc = (k) => fun(input);
                     if (!nocache)
                     {
                         if (cache.TryGetValue(key, out obj)) {
