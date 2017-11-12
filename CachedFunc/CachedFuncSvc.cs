@@ -44,7 +44,7 @@ namespace MagicEastern.CachedFunc
         {
             CachedFunc<T, TResult> ret = (key, fallback, nocache) =>
             {
-                string cacheKey = keySelector(key);
+                string cacheKey = "CachedFunc" + _funcID.ToString() + keySelector(key);
                 if (!nocache)
                 {
                     object obj = cache[cacheKey];

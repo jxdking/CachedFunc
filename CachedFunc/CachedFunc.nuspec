@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MagicEastern.CachedFunc</id>
+    <version>1.0.1</version>
+    <title>MagicEastern.CachedFunc</title>
+    <authors>Kevin Jin</authors>
+    <owners>Kevin Jin</owners>
+    <projectUrl>https://github.com/jxdking/CachedFunc</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A way to create a function which is able to cache previous results.</description>
+    <copyright>Copyright 2017</copyright>
+    <tags>Cache</tags>
+  </metadata>
+</package>

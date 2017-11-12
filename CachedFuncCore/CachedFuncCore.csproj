@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <Version>1.0.1</Version>
+    <PackageId>MagicEastern.CachedFuncCore</PackageId>
+    <Authors>Kevin Jin</Authors>
+    <Company>MagicEastern Studio</Company>
+    <Product>MagicEastern.CachedFuncCore</Product>
+    <Description>A way to create a function which is able to cache previous results.</Description>
+    <Copyright></Copyright>
+    <PackageProjectUrl>https://github.com/jxdking/CachedFunc</PackageProjectUrl>
+    <NeutralLanguage></NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>Cache</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
