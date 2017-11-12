@@ -1,66 +1,15 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using MagicEastern.CachedFunc;
+using MagicEastern.CachedFuncBase;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Concurrent;
 using System.Threading;
 
-namespace MagicEastern.CachedFunc
+namespace MagicEastern.CachedFuncCore
 {
-    public delegate TResult CachedFunc<TResult>(Func<TResult> fallback = null, bool nocache = false);
-    public delegate TResult CachedFunc<T, TResult>(T input, Func<T, TResult> fallback = null, bool nocache = false);
-    public delegate TResult CachedFunc<T, TKey, TResult>(T input, Func<T, TResult> fallback = null, bool nocache = false);
 
-    public class CachedFuncSvc
+    public class CachedFuncSvc : CachedFuncSvcBase
     {
-        #region without cache policy, use Dictionary as cache
-        public CachedFunc<T, TResult> Create<T, TResult>(Func<T, TResult> func = null)
-        {
-            var cache = new ConcurrentDictionary<T, TResult>();
-            CachedFunc<T, T, TResult> cf = CreateFunc(cache, func, PassThrough);
-            CachedFunc<T, TResult> ret = (input, fallback, nocache) => cf(input, fallback, nocache);
-            return ret;
-        }
-
-        public CachedFunc<T, TKey, TResult> Create<T, TKey, TResult>(
-            Func<T, TResult> func, 
-            Func<T, TKey> keySelector)
-        {
-            if (keySelector == null) { throw new ArgumentNullException("keySelector"); }
-            var cache = new ConcurrentDictionary<TKey, TResult>();
-            CachedFunc<T, TKey, TResult> ret = CreateFunc(cache, func, keySelector);
-            return ret;
-        }
-
-        private CachedFunc<T, TKey, TResult> CreateFunc<T, TKey, TResult>(
-            ConcurrentDictionary<TKey, TResult> cache, 
-            Func<T, TResult> func, 
-            Func<T, TKey> keySelector)
-        {
-            CachedFunc<T, TKey, TResult> ret = (input, fallback, nocache) =>
-            {
-                var fun = fallback ?? func;
-                if (fun != null)
-                {
-                    TResult obj;
-                    TKey key = keySelector(input);
-                    Func<TKey, TResult> addFunc = (k) => fun(input);
-                    if (!nocache)
-                    {
-                        if (cache.TryGetValue(key, out obj)) {
-                            return obj;
-                        }
-                    }
-                    obj = fun(input);
-                    cache.GetOrAdd(key, obj);
-                    return obj;
-                }
-                throw new ArgumentNullException("Please provide a [fallback] function for calculating the value. ");
-            };
-            return ret;
-        }
-        #endregion
-
-
         #region with cache policy, use MemoryCache as cache
         private static IMemoryCache _defaultCache = new ServiceCollection().AddMemoryCache().BuildServiceProvider().GetService<IMemoryCache>();
 
@@ -73,7 +22,7 @@ namespace MagicEastern.CachedFunc
         private static int _funcID = 0;
 
         public CachedFunc<TResult> Create<TResult>(
-            Func<TResult> func, 
+            Func<TResult> func,
             MemoryCacheEntryOptions cachePolicy)
         {
             CachedFunc<string, TResult> cachedFunc = Create(AddInputToFunc<string, TResult>(func), cachePolicy);
@@ -82,7 +31,7 @@ namespace MagicEastern.CachedFunc
         }
 
         public CachedFunc<T, TResult> Create<T, TResult>(
-            Func<T, TResult> func, 
+            Func<T, TResult> func,
             MemoryCacheEntryOptions cachePolicy)
         {
             var cache = _cache;
@@ -92,8 +41,8 @@ namespace MagicEastern.CachedFunc
         }
 
         public CachedFunc<T, TKey, TResult> Create<T, TKey, TResult>(
-            Func<T, TResult> func, 
-            MemoryCacheEntryOptions cachePolicy, 
+            Func<T, TResult> func,
+            MemoryCacheEntryOptions cachePolicy,
             Func<T, TKey> keySelector)
         {
             if (keySelector == null) { throw new ArgumentNullException("keySelector"); }
@@ -131,8 +80,6 @@ namespace MagicEastern.CachedFunc
             return ret;
         }
         #endregion
-
-        private T PassThrough<T>(T input) => input;
 
         private Func<T, TResult> AddInputToFunc<T, TResult>(Func<TResult> func)
         {

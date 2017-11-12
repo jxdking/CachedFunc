@@ -1,4 +1,4 @@
-﻿using MagicEastern.CachedFunc;
+﻿using MagicEastern.CachedFuncCore;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Security.Cryptography;
@@ -50,8 +50,8 @@ namespace Test
 
         static void BenchMarkCachedFunc<T, TResult>(Func<T, TResult> func, T[] inputAry, Action<TResult[]> verifyFunc)
         {
-            //var cachedFunc = CachedFunc.Create(func, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
-            var cachedFunc = CachedFunc.Create(func);
+            var cachedFunc = CachedFunc.Create(func, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
+            //var cachedFunc = CachedFunc.Create(func);
             DateTime start;
             DateTime end;
 

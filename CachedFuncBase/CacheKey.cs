@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MagicEastern.CachedFunc
+namespace MagicEastern.CachedFuncBase
 {
-    class CacheKey<T> : IEquatable<CacheKey<T>>
+    public class CacheKey<T> : IEquatable<CacheKey<T>>
     {
         public int FuncID;
         public T Value;
