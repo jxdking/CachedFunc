@@ -1,9 +1,10 @@
-﻿using MagicEastern.CachedFuncCore;
+﻿using MagicEastern.CachedFuncBase;
+using MagicEastern.CachedFuncCore;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Security.Cryptography;
 
-namespace Test
+namespace TestCore
 {
     class Program
     {
@@ -44,14 +45,19 @@ namespace Test
                 ary[i] = i;
             }
 
-            BenchMarkCachedFunc<int, int>(SomeFunc, ary, VerifyResults);
+            Console.WriteLine("Using MemoryCache");
+            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SomeFunc, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
+            BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
+            Console.WriteLine("");
+            cachedFunc = CachedFunc.Create<int, int>(SomeFunc);
+            Console.WriteLine("Using ConcurrentDictionary");
+            BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
+
             Console.ReadKey();
         }
 
-        static void BenchMarkCachedFunc<T, TResult>(Func<T, TResult> func, T[] inputAry, Action<TResult[]> verifyFunc)
+        static void BenchMarkCachedFunc<T, TResult>(Func<T, TResult> func, CachedFunc<T, TResult> cachedFunc, T[] inputAry, Action<TResult[]> verifyFunc)
         {
-            var cachedFunc = CachedFunc.Create(func, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
-            //var cachedFunc = CachedFunc.Create(func);
             DateTime start;
             DateTime end;
 
