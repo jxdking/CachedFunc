@@ -3,6 +3,7 @@ using MagicEastern.CachedFuncBase;
 using System;
 using System.Runtime.Caching;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace TestFramework45
 {
@@ -40,9 +41,10 @@ namespace TestFramework45
             int arySize = 100000;
             int[] ary = new int[arySize];
 
+            Random rand = new Random();
             for (int i = 0; i < ary.Length; i++)
             {
-                ary[i] = i;
+                ary[i] = rand.Next();
             }
 
             Console.WriteLine("Using MemoryCache");
@@ -81,6 +83,7 @@ namespace TestFramework45
             verifyFunc(res);
             Console.WriteLine($"CachedFunc 1st pass: {end.Subtract(start).TotalMilliseconds}ms");
 
+            //Thread.Sleep(500);
             start = DateTime.Now;
             for (int i = 0; i < inputAry.Length; i++)
             {

@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MagicEastern.CachedFuncCore" Version="1.0.1" />
+    <ProjectReference Include="..\CachedFuncBase\CachedFuncBase.csproj" />
+    <ProjectReference Include="..\CachedFuncCore\CachedFuncCore.csproj" />
   </ItemGroup>
 
 </Project>

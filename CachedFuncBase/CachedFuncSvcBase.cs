@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace MagicEastern.CachedFuncBase
 {
-    public abstract class CachedFuncSvcBase 
+    public abstract class CachedFuncSvcBase
     {
         #region without cache policy, use Dictionary as cache
         public CachedFunc<T, TResult> Create<T, TResult>(Func<T, TResult> func = null)
@@ -15,7 +16,7 @@ namespace MagicEastern.CachedFuncBase
         }
 
         public CachedFunc<T, TKey, TResult> Create<T, TKey, TResult>(
-            Func<T, TResult> func, 
+            Func<T, TResult> func,
             Func<T, TKey> keySelector)
         {
             if (keySelector == null) { throw new ArgumentNullException("keySelector"); }
@@ -25,25 +26,26 @@ namespace MagicEastern.CachedFuncBase
         }
 
         private CachedFunc<T, TKey, TResult> CreateFunc<T, TKey, TResult>(
-            ConcurrentDictionary<TKey, TResult> cache, 
-            Func<T, TResult> func, 
+            ConcurrentDictionary<TKey, TResult> cache,
+            Func<T, TResult> func,
             Func<T, TKey> keySelector)
         {
             CachedFunc<T, TKey, TResult> ret = (input, fallback, nocache) =>
             {
+                TResult obj;
+                TKey key = keySelector(input);
+                if (!nocache)
+                {
+                    if (cache.TryGetValue(key, out obj))
+                    {
+                        return obj;
+                    }
+                }
                 var fun = fallback ?? func;
                 if (fun != null)
                 {
-                    TResult obj;
-                    TKey key = keySelector(input);
-                    if (!nocache)
-                    {
-                        if (cache.TryGetValue(key, out obj)) {
-                            return obj;
-                        }
-                    }
                     obj = fun(input);
-                    cache.GetOrAdd(key, obj);
+                    cache.TryAdd(key, obj);
                     return obj;
                 }
                 throw new ArgumentNullException("Please provide a [fallback] function for calculating the value. ");
