@@ -1,15 +1,21 @@
 ﻿using System;
 
-namespace MagicEastern.CachedFuncBase
+namespace MagicEastern.CachedFuncCore
 {
-    public class CacheKey<T> : IEquatable<CacheKey<T>>
+    struct CacheKey<T> : IEquatable<CacheKey<T>>
     {
         public int FuncID;
-        public T Value;
+        public T Value; // not null
+
+        public CacheKey(int funcID, T value)
+        {
+            FuncID = funcID;
+            Value = value;
+        }
 
         public bool Equals(CacheKey<T> other)
         {
-            if (FuncID != other?.FuncID) {
+            if (FuncID != other.FuncID) {
                 return false;
             }
             return Value.Equals(other.Value);

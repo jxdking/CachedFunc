@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Threading;
 
 namespace MagicEastern.CachedFuncBase
 {
@@ -30,25 +30,47 @@ namespace MagicEastern.CachedFuncBase
             Func<T, TResult> func,
             Func<T, TKey> keySelector)
         {
+            ConcurrentDictionary<TKey, object> locks = new ConcurrentDictionary<TKey, object>();
             CachedFunc<T, TKey, TResult> ret = (input, fallback, nocache) =>
             {
                 TResult obj;
                 TKey key = keySelector(input);
-                if (!nocache)
+                if (key != null)
+                {
+                    if (!nocache)
+                    {
+                        if (cache.TryGetValue(key, out obj))
+                        {
+                            return obj;
+                        }
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("[input] of the function is null or [keySelector(T)] returns null.");
+                }
+
+                object lockObj = new object();
+                lockObj = locks.GetOrAdd(key, lockObj);
+                Monitor.Enter(lockObj);
+                try
                 {
                     if (cache.TryGetValue(key, out obj))
                     {
                         return obj;
                     }
+                    var fun = fallback ?? func;
+                    if (fun != null)
+                    {
+                        obj = fun(input);
+                        cache.TryAdd(key, obj);
+                        return obj;
+                    }
+                    throw new ArgumentNullException("Please provide a [fallback] function for calculating the value. ");
+                } finally {
+                    locks.TryRemove(key, out object o);
+                    Monitor.Exit(lockObj);
                 }
-                var fun = fallback ?? func;
-                if (fun != null)
-                {
-                    obj = fun(input);
-                    cache.TryAdd(key, obj);
-                    return obj;
-                }
-                throw new ArgumentNullException("Please provide a [fallback] function for calculating the value. ");
             };
             return ret;
         }

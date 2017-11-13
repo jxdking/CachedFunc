@@ -4,6 +4,7 @@ using System;
 using System.Runtime.Caching;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace TestFramework45
 {
@@ -36,7 +37,44 @@ namespace TestFramework45
             }
         }
 
+        static int SlowFunc(int n)
+        {
+            Console.WriteLine("SlowFunc is running ... ");
+            Thread.Sleep(1000);
+            return n;
+        }
+
+        static Task<int> CreateTask(int n, int taskid, Func<int, int> func)
+        {
+            Task<int> t = new Task<int>(() => {
+                int ret = func(n);
+                Console.WriteLine($"Task {taskid} finished!");
+                return ret;
+            });
+            return t;
+        }
+
+        static void ConcurrentTest()
+        {
+            Random rand = new Random();
+            int n = rand.Next();
+            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SlowFunc, () => new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddHours(1) }, (i) => i.ToString());
+            var t1 = CreateTask(n, 1, (i) => cachedFunc(i));
+            var t2 = CreateTask(n, 2, (i) => cachedFunc(i));
+            t1.Start();
+            t2.Start();
+            Task.WaitAll(t1, t2);
+        }
+
         static void Main(string[] args)
+        {
+            ConcurrentTest();
+            Console.WriteLine("");
+            PerformanceTest();
+            Console.ReadKey();
+        }
+
+        private static void PerformanceTest()
         {
             int arySize = 100000;
             int[] ary = new int[arySize];
@@ -48,14 +86,12 @@ namespace TestFramework45
             }
 
             Console.WriteLine("Using MemoryCache");
-            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SomeFunc, () => new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddHours(1) }, (i) => i.ToString() );
+            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SomeFunc, () => new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddHours(1) }, (i) => i.ToString());
             BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
             Console.WriteLine("");
             cachedFunc = CachedFunc.Create<int, int>(SomeFunc);
             Console.WriteLine("Using ConcurrentDictionary");
             BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
-
-            Console.ReadKey();
         }
 
         static void BenchMarkCachedFunc<T, TResult>(Func<T, TResult> func, CachedFunc<T, TResult> cachedFunc, T[] inputAry, Action<TResult[]> verifyFunc)

@@ -1,5 +1,6 @@
 ﻿using MagicEastern.CachedFuncBase;
 using System;
+using System.Collections.Concurrent;
 using System.Runtime.Caching;
 using System.Threading;
 
@@ -42,25 +43,52 @@ namespace MagicEastern.CachedFunc
             Func<CacheItemPolicy> policyFactory,
             Func<T, string> keySelector)
         {
-            CachedFunc<T, TResult> ret = (key, fallback, nocache) =>
+            ConcurrentDictionary<string, object> locks = new ConcurrentDictionary<string, object>();
+            CachedFunc<T, TResult> ret = (input, fallback, nocache) =>
             {
-                string cacheKey = "CachedFunc" + _funcID.ToString() + keySelector(key);
-                if (!nocache)
+                string key = keySelector(input);
+                string cacheKey = "CachedFunc" + _funcID.ToString() + keySelector(input);
+                if (key != null)
+                {
+                    if (!nocache)
+                    {
+                        object obj = cache[cacheKey];
+                        if (obj != null)
+                        {
+                            return (TResult)obj;
+                        }
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("[input] of the function is null or [keySelector(T)] returns null.");
+                }
+
+                object lockObj = new object();
+                lockObj = locks.GetOrAdd(key, lockObj);
+                Monitor.Enter(lockObj);
+                try
                 {
                     object obj = cache[cacheKey];
                     if (obj != null)
                     {
                         return (TResult)obj;
                     }
+
+                    var fun = fallback ?? func;
+                    if (fun != null)
+                    {
+                        TResult res = fun(input);
+                        cache.Set(cacheKey, res, policyFactory());
+                        return res;
+                    }
+                    throw new ArgumentNullException("Please provide a [fallback] function for calculating the value. ");
                 }
-                var fun = fallback ?? func;
-                if (fun != null)
+                finally
                 {
-                    TResult res = fun(key);
-                    cache.Set(cacheKey, res, policyFactory());
-                    return res;
+                    locks.TryRemove(key, out object o);
+                    Monitor.Exit(lockObj);
                 }
-                throw new ArgumentNullException("Please provide a [fallback] function for calculating the value. ");
             };
             return ret;
         }
