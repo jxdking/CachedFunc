@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -61,9 +61,9 @@
       <Project>{a0049c96-2395-455d-b69b-4824fb84ec13}</Project>
       <Name>CachedFuncBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CachedFunc\CachedFunc.csproj">
-      <Project>{79096c0d-ef52-44aa-b023-92827813d8e7}</Project>
-      <Name>CachedFunc</Name>
+    <ProjectReference Include="..\CachedFunc\CachedFuncNet45.csproj">
+      <Project>{79096C0D-EF52-44AA-B023-92827813D8E7}</Project>
+      <Name>CachedFuncNet45</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

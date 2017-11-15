@@ -1,6 +1,5 @@
-﻿using MagicEastern.CachedFuncBase;
-using MagicEastern.CachedFuncCore;
-using Microsoft.Extensions.Caching.Memory;
+﻿using MagicEastern.CachedFunc;
+using MagicEastern.CachedFunc.Core;
 using System;
 using System.Security.Cryptography;
 using System.Threading;
@@ -30,9 +29,9 @@ namespace TestCore
         static void ConcurrentTest() {
             Random rand = new Random();
             int n = rand.Next();
-            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SlowFunc, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
+            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SlowFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
             var t1 = CreateTask(n, 1, (i) => cachedFunc(i));
-            var t2 = CreateTask(1, 2, (i) => cachedFunc(i));
+            var t2 = CreateTask(n, 2, (i) => cachedFunc(i));
             t1.Start();
             t2.Start();
             Task.WaitAll(t1, t2);
@@ -67,7 +66,7 @@ namespace TestCore
             }
 
             Console.WriteLine("Using MemoryCache");
-            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SomeFunc, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
+            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SomeFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
             BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
             Console.WriteLine("");
             cachedFunc = CachedFunc.Create<int, int>(SomeFunc);
