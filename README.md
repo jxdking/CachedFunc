@@ -9,7 +9,7 @@ Get package from Nuget: [MagicEastern.CachedFunc.Core](https://www.nuget.org/pac
 
 ## How to Use
 
-Assume there is a slow running function.
+Assume there is a slow-running function.
 
 ```
 static int SlowFunc(int n) {
@@ -30,7 +30,7 @@ CachedFunc<int, int> cachedFunc =
   );
 ```
 
-Then, you have a cached function. .
+Then, you have a cached function. Call this function in the same way as the orignal function.
 
 ```
 int result = cachedFunc(12345);
