@@ -4,8 +4,9 @@ Provide a way to create a function that can cache results of previous runs.
 
 ## Getting Started
 
-Get package from Nuget: [MagicEastern.CachedFunc.Core](https://www.nuget.org/packages/MagicEastern.CachedFunc.Core/)
+For .Net Standard >= 1.3, get package from Nuget: [MagicEastern.CachedFunc.Core](https://www.nuget.org/packages/MagicEastern.CachedFunc.Core/)
 
+For .Net Framework 4.5s, get package from Nuget: [MagicEastern.CachedFunc.Net45](https://www.nuget.org/packages/MagicEastern.CachedFunc.Net45/)
 
 ## How to Use
 
