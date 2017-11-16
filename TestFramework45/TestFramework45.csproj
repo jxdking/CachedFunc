@@ -47,6 +47,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="CachedFuncBase">
+      <HintPath>..\packages\MagicEastern.CachedFunc.Base.1.1.0\lib\netstandard1.1\CachedFuncBase.dll</HintPath>
+    </Reference>
+    <Reference Include="CachedFunc">
+      <HintPath>..\packages\MagicEastern.CachedFunc.Net45.1.1.0\lib\net45\CachedFunc.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -55,16 +61,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CachedFuncBase\CachedFuncBase.csproj">
-      <Project>{a0049c96-2395-455d-b69b-4824fb84ec13}</Project>
-      <Name>CachedFuncBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CachedFunc\CachedFuncNet45.csproj">
-      <Project>{79096C0D-EF52-44AA-B023-92827813D8E7}</Project>
-      <Name>CachedFuncNet45</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

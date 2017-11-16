@@ -1,4 +1,5 @@
 ﻿using MagicEastern.CachedFunc;
+using MagicEastern.CachedFunc.Base;
 using MagicEastern.CachedFunc.Core;
 using System;
 using System.Security.Cryptography;
@@ -9,7 +10,7 @@ namespace TestCore
 {
     class Program
     {
-        static CachedFuncSvc CachedFunc = new CachedFuncSvc();
+        static CachedFuncSvcBase CachedFunc = new CachedFuncSvc();
 
         static int SlowFunc(int n) {
             Console.WriteLine("SlowFunc is running ... ");
