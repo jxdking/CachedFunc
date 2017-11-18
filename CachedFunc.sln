@@ -3,20 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachedFuncCore", "CachedFuncCore\CachedFuncCore.csproj", "{0E3951AE-AD14-4A28-BB0F-CA50B558E2BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachedFuncCore", "CachedFuncCore\CachedFuncCore.csproj", "{0E3951AE-AD14-4A28-BB0F-CA50B558E2BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachedFuncBase", "CachedFuncBase\CachedFuncBase.csproj", "{A0049C96-2395-455D-B69B-4824FB84EC13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachedFuncBase", "CachedFuncBase\CachedFuncBase.csproj", "{A0049C96-2395-455D-B69B-4824FB84EC13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachedFuncNet45", "CachedFunc\CachedFuncNet45.csproj", "{79096C0D-EF52-44AA-B023-92827813D8E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCore", "TestCore\TestCore.csproj", "{E0C36D21-C58C-4716-AF61-90B0AC007B7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCore", "TestCore\TestCore.csproj", "{E0C36D21-C58C-4716-AF61-90B0AC007B7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFramework45", "TestFramework45\TestFramework45.csproj", "{554BFE68-428D-453E-9320-E1EF85C66954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachedFuncNet45", "CachedFuncNet45\CachedFuncNet45.csproj", "{79096C0D-EF52-44AA-B023-92827813D8E7}"
+EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -30,10 +27,6 @@ Global
 		{A0049C96-2395-455D-B69B-4824FB84EC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0049C96-2395-455D-B69B-4824FB84EC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0049C96-2395-455D-B69B-4824FB84EC13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79096C0D-EF52-44AA-B023-92827813D8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79096C0D-EF52-44AA-B023-92827813D8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79096C0D-EF52-44AA-B023-92827813D8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79096C0D-EF52-44AA-B023-92827813D8E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0C36D21-C58C-4716-AF61-90B0AC007B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0C36D21-C58C-4716-AF61-90B0AC007B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0C36D21-C58C-4716-AF61-90B0AC007B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,12 +35,19 @@ Global
 		{554BFE68-428D-453E-9320-E1EF85C66954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{554BFE68-428D-453E-9320-E1EF85C66954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{554BFE68-428D-453E-9320-E1EF85C66954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79096C0D-EF52-44AA-B023-92827813D8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79096C0D-EF52-44AA-B023-92827813D8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79096C0D-EF52-44AA-B023-92827813D8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79096C0D-EF52-44AA-B023-92827813D8E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94E47601-159D-4EFB-93BB-39283FF3A7E9}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true
