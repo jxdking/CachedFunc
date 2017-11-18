@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -50,12 +50,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="CachedFuncBase">
-      <HintPath>..\packages\MagicEastern.CachedFunc.Base.1.1.0\lib\netstandard1.1\CachedFuncBase.dll</HintPath>
-    </Reference>
-    <Reference Include="CachedFunc">
-      <HintPath>..\packages\MagicEastern.CachedFunc.Net45.1.1.0\lib\net45\CachedFunc.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -65,14 +59,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
     <ProjectReference Include="..\CachedFuncBase\CachedFuncBase.csproj">
       <Project>{A0049C96-2395-455D-B69B-4824FB84EC13}</Project>
       <Name>CachedFuncBase</Name>
     </ProjectReference>
   </ItemGroup>
-=======
->>>>>>> 3f07bd37d34d667b4571d0fece48b75a012deae3
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

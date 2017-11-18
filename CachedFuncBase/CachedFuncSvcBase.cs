@@ -2,66 +2,44 @@
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace MagicEastern.CachedFunc.Base
+namespace MagicEastern.CachedFuncBase
 {
-    public class CachedFuncSvcBase
+    public abstract class CachedFuncSvcBase
     {
-        private static int _funcID = 0;
-
-        protected virtual ICacheHolder<TKey, TValue> GetCacheHolder<TKey, TValue>(CachedFuncOptions options)
-        {
-            if (options != null) {
-                throw new NotSupportedException("CachedFuncSvcBase does not support any CachedFuncOptions!");
-            }
-            return new DictionaryCacheHolder<TKey, TValue>();
-        }
-
         #region without cache policy, use Dictionary as cache
-        public CachedFunc<TResult> Create<TResult>(
-            Func<TResult> func = null,
-            CachedFuncOptions options = null) 
+        public CachedFunc<T, TResult> Create<T, TResult>(Func<T, TResult> func = null)
         {
-            CachedFunc<string, string, TResult> cf = CreateFunc<string, string, TResult>(Interlocked.Increment(ref _funcID), (i) => func(), PassThrough, options);
-            CachedFunc<TResult> ret = (fallback, nocache) => cf("", (i) => fallback(), nocache);
-            return ret;
-        }
-
-        public CachedFunc<T, TResult> Create<T, TResult>(
-            Func<T, TResult> func = null, 
-            CachedFuncOptions options = null)
-        {
-            CachedFunc<T, T, TResult> cf = CreateFunc<T, T, TResult>(Interlocked.Increment(ref _funcID), func, PassThrough, options);
+            var cache = new ConcurrentDictionary<T, TResult>();
+            CachedFunc<T, T, TResult> cf = CreateFunc(cache, func, PassThrough);
             CachedFunc<T, TResult> ret = (input, fallback, nocache) => cf(input, fallback, nocache);
             return ret;
         }
 
         public CachedFunc<T, TKey, TResult> Create<T, TKey, TResult>(
             Func<T, TResult> func,
-            Func<T, TKey> keySelector, 
-            CachedFuncOptions options = null)
+            Func<T, TKey> keySelector)
         {
             if (keySelector == null) { throw new ArgumentNullException("keySelector"); }
-            CachedFunc<T, TKey, TResult> ret = CreateFunc(Interlocked.Increment(ref _funcID), func, keySelector, options);
+            var cache = new ConcurrentDictionary<TKey, TResult>();
+            CachedFunc<T, TKey, TResult> ret = CreateFunc(cache, func, keySelector);
             return ret;
         }
 
         private CachedFunc<T, TKey, TResult> CreateFunc<T, TKey, TResult>(
-            int funcID,
+            ConcurrentDictionary<TKey, TResult> cache,
             Func<T, TResult> func,
-            Func<T, TKey> keySelector,
-            CachedFuncOptions options)
+            Func<T, TKey> keySelector)
         {
-            ICacheHolder<TKey, TResult> cache = GetCacheHolder<TKey, TResult>(options);
             ConcurrentDictionary<TKey, object> locks = new ConcurrentDictionary<TKey, object>();
             CachedFunc<T, TKey, TResult> ret = (input, fallback, nocache) =>
             {
                 TResult obj;
                 TKey key = keySelector(input);
-                if (!key.Equals(null))
+                if (key != null)
                 {
                     if (!nocache)
                     {
-                        if (cache.TryGetValue(key, funcID, out obj))
+                        if (cache.TryGetValue(key, out obj))
                         {
                             return obj;
                         }
@@ -77,7 +55,7 @@ namespace MagicEastern.CachedFunc.Base
                 Monitor.Enter(lockObj);
                 try
                 {
-                    if (cache.TryGetValue(key, funcID, out obj))
+                    if (cache.TryGetValue(key, out obj))
                     {
                         return obj;
                     }
@@ -85,7 +63,7 @@ namespace MagicEastern.CachedFunc.Base
                     if (fun != null)
                     {
                         obj = fun(input);
-                        cache.Add(key, funcID, obj);
+                        cache.TryAdd(key, obj);
                         return obj;
                     }
                     throw new ArgumentNullException("Please provide a [fallback] function for calculating the value. ");
