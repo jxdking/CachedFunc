@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageId>MagicEastern.CachedFuncCore</PackageId>
     <Authors>Kevin Jin</Authors>
     <Company>MagicEastern Studio</Company>
@@ -16,12 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MagicEastern.CachedFuncBase" Version="1.0.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CachedFuncBase\CachedFuncBase.csproj" />
   </ItemGroup>
 
 </Project>
