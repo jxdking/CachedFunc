@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <PackageReference Include="MagicEastern.CachedFuncCore" Version="1.0.2" />
+=======
+    <PackageReference Include="MagicEastern.CachedFunc.Core" Version="1.1.0" />
+>>>>>>> 3f07bd37d34d667b4571d0fece48b75a012deae3
   </ItemGroup>
-
 </Project>

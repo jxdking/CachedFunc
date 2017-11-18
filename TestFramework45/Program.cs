@@ -1,7 +1,6 @@
-﻿using MagicEastern.CachedFunc;
-using MagicEastern.CachedFuncBase;
+﻿using MagicEastern.CachedFunc.Net45;
+using MagicEastern.CachedFunc;
 using System;
-using System.Runtime.Caching;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
@@ -58,7 +57,10 @@ namespace TestFramework45
         {
             Random rand = new Random();
             int n = rand.Next();
-            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SlowFunc, () => new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddHours(1) }, (i) => i.ToString());
+            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(
+                SlowFunc, 
+                new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) }
+            );
             var t1 = CreateTask(n, 1, (i) => cachedFunc(i));
             var t2 = CreateTask(n, 2, (i) => cachedFunc(i));
             t1.Start();
@@ -68,7 +70,7 @@ namespace TestFramework45
 
         static void Main(string[] args)
         {
-            ConcurrentTest();
+            //ConcurrentTest();
             Console.WriteLine("");
             PerformanceTest();
             Console.ReadKey();
@@ -86,7 +88,11 @@ namespace TestFramework45
             }
 
             Console.WriteLine("Using MemoryCache");
-            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SomeFunc, () => new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddHours(1) }, (i) => i.ToString());
+            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(
+                SomeFunc,
+                new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) }
+            );
+
             BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
             Console.WriteLine("");
             cachedFunc = CachedFunc.Create<int, int>(SomeFunc);
