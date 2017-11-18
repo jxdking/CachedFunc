@@ -5,10 +5,10 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kevin Jin</Authors>
     <Company>Magic Eastern Studio</Company>
-    <Description>Prerequisite of MagicEastern.CachedFunc or MagicEastern.CachedFuncCore</Description>
+    <Description>A way to create a new function which will cache the previous results.</Description>
     <PackageId>MagicEastern.CachedFuncBase</PackageId>
     <PackageProjectUrl>https://github.com/jxdking/CachedFunc</PackageProjectUrl>
-    <Version>1.0.2</Version>
+    <Version>1.0.1</Version>
     <Product>MagicEastern.CachedFuncBase</Product>
   </PropertyGroup>
 

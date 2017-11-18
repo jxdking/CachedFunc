@@ -12,17 +12,14 @@ namespace TestCore
     {
         static CachedFuncSvc CachedFunc = new CachedFuncSvc();
 
-        static int SlowFunc(int n)
-        {
+        static int SlowFunc(int n) {
             Console.WriteLine("SlowFunc is running ... ");
             Thread.Sleep(1000);
             return n;
         }
 
-        static Task<int> CreateTask(int n, int taskid, Func<int, int> func)
-        {
-            Task<int> t = new Task<int>(() =>
-            {
+        static Task<int> CreateTask(int n, int taskid, Func<int, int> func) {
+            Task<int> t = new Task<int>(() => {
                 int ret = func(n);
                 Console.WriteLine($"Task {taskid} finished!");
                 return ret;
@@ -30,13 +27,12 @@ namespace TestCore
             return t;
         }
 
-        static void ConcurrentTest()
-        {
+        static void ConcurrentTest() {
             Random rand = new Random();
             int n = rand.Next();
             CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SlowFunc, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
             var t1 = CreateTask(n, 1, (i) => cachedFunc(i));
-            var t2 = CreateTask(n, 2, (i) => cachedFunc(i));
+            var t2 = CreateTask(1, 2, (i) => cachedFunc(i));
             t1.Start();
             t2.Start();
             Task.WaitAll(t1, t2);
