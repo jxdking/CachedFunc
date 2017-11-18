@@ -70,7 +70,7 @@ namespace TestFramework45
 
         static void Main(string[] args)
         {
-            //ConcurrentTest();
+            ConcurrentTest();
             Console.WriteLine("");
             PerformanceTest();
             Console.ReadKey();
