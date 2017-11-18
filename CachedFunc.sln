@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachedFuncCore", "CachedFuncCore\CachedFuncCore.csproj", "{0E3951AE-AD14-4A28-BB0F-CA50B558E2BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachedFuncCore", "CachedFuncCore\CachedFuncCore.csproj", "{0E3951AE-AD14-4A28-BB0F-CA50B558E2BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachedFuncBase", "CachedFuncBase\CachedFuncBase.csproj", "{A0049C96-2395-455D-B69B-4824FB84EC13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachedFuncBase", "CachedFuncBase\CachedFuncBase.csproj", "{A0049C96-2395-455D-B69B-4824FB84EC13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachedFuncNet45", "CachedFunc\CachedFuncNet45.csproj", "{79096C0D-EF52-44AA-B023-92827813D8E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachedFunc", "CachedFunc\CachedFunc.csproj", "{79096C0D-EF52-44AA-B023-92827813D8E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCore", "TestCore\TestCore.csproj", "{E0C36D21-C58C-4716-AF61-90B0AC007B7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCore", "TestCore\TestCore.csproj", "{E0C36D21-C58C-4716-AF61-90B0AC007B7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFramework45", "TestFramework45\TestFramework45.csproj", "{554BFE68-428D-453E-9320-E1EF85C66954}"
 EndProject
