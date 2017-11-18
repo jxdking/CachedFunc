@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CachedFunc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MagicEastern.CachedFunc.Net45.1.1.1\lib\net45\CachedFunc.dll</HintPath>
+    </Reference>
+    <Reference Include="CachedFuncBase, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MagicEastern.CachedFunc.Base.1.1.0\lib\netstandard1.1\CachedFuncBase.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -47,12 +53,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="CachedFuncBase">
-      <HintPath>..\packages\MagicEastern.CachedFunc.Base.1.1.0\lib\netstandard1.1\CachedFuncBase.dll</HintPath>
-    </Reference>
-    <Reference Include="CachedFunc">
-      <HintPath>..\packages\MagicEastern.CachedFunc.Net45.1.1.0\lib\net45\CachedFunc.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

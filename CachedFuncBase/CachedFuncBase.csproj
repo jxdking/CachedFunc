@@ -5,12 +5,15 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Kevin Jin</Authors>
     <Company>Magic Eastern Studio</Company>
-    <Description>Prerequisite for MagicEastern.CachedFunc.Core and MagicEastern.CachedFunc.Net45</Description>
+    <Description>Prerequisite for MagicEastern.CachedFunc.Core and MagicEastern.CachedFunc.Net45.</Description>
     <PackageId>MagicEastern.CachedFunc.Base</PackageId>
     <PackageProjectUrl>https://github.com/jxdking/CachedFunc</PackageProjectUrl>
-    <Version>1.0.1</Version>
-    <Product>MagicEastern.CachedFuncBase</Product>
-    <PackageVersion>1.1.0</PackageVersion>
+    <Version>1.1.1</Version>
+    <Product>MagicEastern.CachedFunc.Base</Product>
+    <PackageLicenseUrl>https://github.com/jxdking/CachedFunc/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright 2017</Copyright>
+    <AssemblyName>MagicEastern.CachedFunc.Base</AssemblyName>
+    <RootNamespace>MagicEastern.CachedFunc.Base</RootNamespace>
   </PropertyGroup>
 
 </Project>

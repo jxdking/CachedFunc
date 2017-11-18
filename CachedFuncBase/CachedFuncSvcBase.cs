@@ -4,6 +4,9 @@ using System.Threading;
 
 namespace MagicEastern.CachedFunc.Base
 {
+    /// <summary>
+    /// Base class of CachedFuncSvc. Use this class directly is not recommended.
+    /// </summary>
     public class CachedFuncSvcBase
     {
         private static int _funcID = 0;
@@ -13,10 +16,17 @@ namespace MagicEastern.CachedFunc.Base
             if (options != null) {
                 throw new NotSupportedException("CachedFuncSvcBase does not support any CachedFuncOptions!");
             }
+            //without cache policy, use Dictionary as cache
             return new DictionaryCacheHolder<TKey, TValue>();
         }
 
-        #region without cache policy, use Dictionary as cache
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TResult">Type of return object of func</typeparam>
+        /// <param name="func">Pass null if you don't want define func at this moment.</param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public CachedFunc<TResult> Create<TResult>(
             Func<TResult> func = null,
             CachedFuncOptions options = null) 
@@ -26,6 +36,14 @@ namespace MagicEastern.CachedFunc.Base
             return ret;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T">Type of input object of func</typeparam>
+        /// <typeparam name="TResult">Type of return object of func</typeparam>
+        /// <param name="func">Pass null if you don't want define func at this moment.</param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public CachedFunc<T, TResult> Create<T, TResult>(
             Func<T, TResult> func = null, 
             CachedFuncOptions options = null)
@@ -35,6 +53,16 @@ namespace MagicEastern.CachedFunc.Base
             return ret;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T">Type of input object of func</typeparam>
+        /// <typeparam name="TKey">Type of return object of keySelector</typeparam>
+        /// <typeparam name="TResult">Type of return object of func</typeparam>
+        /// <param name="func">Pass null if you don't want define func at this moment.</param>
+        /// <param name="keySelector">The result of keySelector will be use as key for internal Dictonary or MemoryCache object.</param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public CachedFunc<T, TKey, TResult> Create<T, TKey, TResult>(
             Func<T, TResult> func,
             Func<T, TKey> keySelector, 
@@ -96,7 +124,6 @@ namespace MagicEastern.CachedFunc.Base
             };
             return ret;
         }
-        #endregion
 
         protected T PassThrough<T>(T input) => input;
     }
