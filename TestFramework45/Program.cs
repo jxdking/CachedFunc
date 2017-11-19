@@ -9,7 +9,7 @@ namespace TestFramework45
 {
     class Program
     {
-        static CachedFuncSvc CachedFunc = new CachedFuncSvc();
+        static CachedFuncSvcBase CachedFunc = new CachedFuncSvc();
 
         static int SomeFunc(int n)
         {

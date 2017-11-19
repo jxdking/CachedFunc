@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace MagicEastern.CachedFunc.Base
+namespace MagicEastern.CachedFunc
 {
     /// <summary>
     /// Base class of CachedFuncSvc. Use this class directly is not recommended.
@@ -100,8 +100,7 @@ namespace MagicEastern.CachedFunc.Base
                     throw new ArgumentNullException("[input] of the function is null or [keySelector(T)] returns null.");
                 }
 
-                object lockObj = new object();
-                lockObj = locks.GetOrAdd(key, lockObj);
+                object lockObj = locks.GetOrAdd(key, new object());
                 Monitor.Enter(lockObj);
                 try
                 {

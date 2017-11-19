@@ -1,5 +1,4 @@
 ﻿using MagicEastern.CachedFunc;
-using MagicEastern.CachedFunc.Base;
 using MagicEastern.CachedFunc.Core;
 using System;
 using System.Security.Cryptography;

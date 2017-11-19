@@ -1,8 +1,4 @@
-﻿using MagicEastern.CachedFunc.Base;
-using System;
-using System.Collections.Concurrent;
-using System.Runtime.Caching;
-using System.Threading;
+﻿using System.Runtime.Caching;
 
 namespace MagicEastern.CachedFunc.Net45
 {

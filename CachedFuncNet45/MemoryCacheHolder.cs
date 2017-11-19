@@ -1,7 +1,7 @@
-﻿using System;
-using System.Runtime.Caching;
-using MagicEastern.CachedFunc.Base;
+﻿using MagicEastern.CachedFunc.Base;
+using System;
 using System.Collections.Concurrent;
+using System.Runtime.Caching;
 using System.Threading;
 
 
@@ -55,8 +55,8 @@ namespace MagicEastern.CachedFunc.Net45
 
         public bool TryGetValue(TKey key, int funcID, out TValue val)
         {
-            val = default(TValue);
             if (!TryGetCacheKey(key, funcID, out string cacheKey, false)) {
+                val = default(TValue);
                 return false;
             }
             object obj = _cache[cacheKey];
@@ -65,6 +65,7 @@ namespace MagicEastern.CachedFunc.Net45
                 val = (TValue)obj;
                 return true;
             }
+            val = default(TValue);
             return false;
         }
 

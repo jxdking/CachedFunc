@@ -1,5 +1,4 @@
-﻿using MagicEastern.CachedFunc.Base;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MagicEastern.CachedFunc.Core

@@ -19,10 +19,14 @@
     <RootNamespace>MagicEastern.CachedFunc.Core</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="MagicEastern.CachedFunc.Base" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
-    <PackageReference Include="MagicEastern.CachedFunc.Base" Version="1.1.0" />
   </ItemGroup>
 
 </Project>
