@@ -17,6 +17,13 @@ namespace TestCore
             return n;
         }
 
+        static int SlowFunc()
+        {
+            Console.WriteLine("SlowFunc is running ... ");
+            Thread.Sleep(1000);
+            return 123;
+        }
+
         static Task<int> CreateTask(int n, int taskid, Func<int, int> func) {
             Task<int> t = new Task<int>(() => {
                 int ret = func(n);
@@ -29,9 +36,11 @@ namespace TestCore
         static void ConcurrentTest() {
             Random rand = new Random();
             int n = rand.Next();
-            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SlowFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
-            var t1 = CreateTask(n, 1, (i) => cachedFunc(i));
-            var t2 = CreateTask(n, 2, (i) => cachedFunc(i));
+            //CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SlowFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
+            CachedFunc<int> cachedFunc = CachedFunc.Create<int>(SlowFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
+            cachedFunc();
+            var t1 = CreateTask(n, 1, (i) => cachedFunc());
+            var t2 = CreateTask(n, 2, (i) => cachedFunc());
             t1.Start();
             t2.Start();
             Task.WaitAll(t1, t2);
@@ -53,6 +62,8 @@ namespace TestCore
             }
             return n;
         }
+
+
 
         static void PerformanceTest()
         {

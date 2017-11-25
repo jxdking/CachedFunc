@@ -32,7 +32,7 @@ namespace MagicEastern.CachedFunc
             CachedFuncOptions options = null) 
         {
             CachedFunc<string, string, TResult> cf = CreateFunc<string, string, TResult>(Interlocked.Increment(ref _funcID), (i) => func(), PassThrough, options);
-            CachedFunc<TResult> ret = (fallback, nocache) => cf("", (i) => fallback(), nocache);
+            CachedFunc<TResult> ret = (fallback, nocache) => cf("", fallback == null ? null : new Func<string, TResult>((i) => fallback()), nocache);
             return ret;
         }
 

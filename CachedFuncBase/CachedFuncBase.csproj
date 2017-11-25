@@ -8,12 +8,14 @@
     <Description>Prerequisite for MagicEastern.CachedFunc.Core and MagicEastern.CachedFunc.Net45.</Description>
     <PackageId>MagicEastern.CachedFunc.Base</PackageId>
     <PackageProjectUrl>https://github.com/jxdking/CachedFunc</PackageProjectUrl>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <Product>MagicEastern.CachedFunc.Base</Product>
     <PackageLicenseUrl>https://github.com/jxdking/CachedFunc/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>Copyright 2017</Copyright>
     <AssemblyName>MagicEastern.CachedFunc.Base</AssemblyName>
     <RootNamespace>MagicEastern.CachedFunc.Base</RootNamespace>
+    <PackageTags>Cache</PackageTags>
+    <PackageReleaseNotes>Bug fixes. Fixed the crash when target function take none parameter.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
