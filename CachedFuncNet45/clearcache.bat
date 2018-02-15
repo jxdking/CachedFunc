@@ -1,2 +1,2 @@
-nuget locals all -clear
+.\nuget.exe locals all -clear
 pause

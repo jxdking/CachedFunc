@@ -24,12 +24,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MagicEastern.CachedFunc.Base" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CachedFuncBase\CachedFuncBase.csproj" />
   </ItemGroup>
 
 </Project>

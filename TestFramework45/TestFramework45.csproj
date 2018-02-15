@@ -32,11 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MagicEastern.CachedFunc.Base, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MagicEastern.CachedFunc.Base.1.1.1\lib\netstandard1.1\MagicEastern.CachedFunc.Base.dll</HintPath>
+    <Reference Include="MagicEastern.CachedFunc.Base, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MagicEastern.CachedFunc.Base.1.1.2\lib\netstandard1.1\MagicEastern.CachedFunc.Base.dll</HintPath>
     </Reference>
-    <Reference Include="MagicEastern.CachedFunc.Net45, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MagicEastern.CachedFunc.Net45.1.1.1\lib\net45\MagicEastern.CachedFunc.Net45.dll</HintPath>
+    <Reference Include="MagicEastern.CachedFunc.Net45, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MagicEastern.CachedFunc.Net45.1.1.2\lib\net45\MagicEastern.CachedFunc.Net45.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
