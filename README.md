@@ -12,7 +12,7 @@ For .Net Framework 4.5s, get package from Nuget: [MagicEastern.CachedFunc.Net45]
 
 Assume there is a slow-running function.
 
-```
+```c#
 static int SlowFunc(int n) {
     Thread.Sleep(1000);
     return n;
