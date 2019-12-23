@@ -9,8 +9,6 @@ namespace TestCore
 {
     class Program
     {
-        static CachedFuncSvcBase CachedFunc = new CachedFuncSvc();
-
         static int SlowFunc(int n) {
             Console.WriteLine("SlowFunc is running ... ");
             Thread.Sleep(1000);
@@ -36,8 +34,8 @@ namespace TestCore
         static void ConcurrentTest() {
             Random rand = new Random();
             int n = rand.Next();
-            //CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SlowFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
-            CachedFunc<int> cachedFunc = CachedFunc.Create<int>(SlowFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
+
+            CachedFunc<int> cachedFunc = ((Func<int>)SlowFunc).ToCachedFunc(new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });  //CachedFunc.Create<int>(SlowFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
             cachedFunc();
             var t1 = CreateTask(n, 1, (i) => cachedFunc());
             var t2 = CreateTask(n, 2, (i) => cachedFunc());
@@ -77,11 +75,11 @@ namespace TestCore
             }
 
             Console.WriteLine("Using MemoryCache");
-            CachedFunc<int, int> cachedFunc = CachedFunc.Create<int, int>(SomeFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
+            CachedFunc<int, int> cachedFunc = ((Func<int, int>)SomeFunc).ToCachedFunc(new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) }); //CachedFunc.Create<int, int>(SomeFunc, new CachedFuncOptions { AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) });
             BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
             Console.WriteLine("");
-            cachedFunc = CachedFunc.Create<int, int>(SomeFunc);
-            Console.WriteLine("Using ConcurrentDictionary");
+            cachedFunc = ((Func<int, int>)SomeFunc).ToCachedFunc(); 
+            Console.WriteLine("Using Dictionary");
             BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
         }
 

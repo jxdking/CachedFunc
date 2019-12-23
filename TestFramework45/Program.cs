@@ -96,7 +96,7 @@ namespace TestFramework45
             BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
             Console.WriteLine("");
             cachedFunc = CachedFunc.Create<int, int>(SomeFunc);
-            Console.WriteLine("Using ConcurrentDictionary");
+            Console.WriteLine("Using Dictionary");
             BenchMarkCachedFunc<int, int>(SomeFunc, cachedFunc, ary, VerifyResults);
         }
 

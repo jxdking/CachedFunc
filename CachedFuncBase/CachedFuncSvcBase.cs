@@ -31,7 +31,7 @@ namespace MagicEastern.CachedFunc
             Func<TResult> func = null,
             CachedFuncOptions options = null) 
         {
-            CachedFunc<string, string, TResult> cf = CreateFunc<string, string, TResult>(Interlocked.Increment(ref _funcID), (i) => func(), PassThrough, options);
+            CachedFunc<string, string, TResult> cf = CreateFunc(Interlocked.Increment(ref _funcID), func == null ? (Func<string, TResult>)null : (i) => func(), PassThrough, options);
             CachedFunc<TResult> ret = (fallback, nocache) => cf("", fallback == null ? null : new Func<string, TResult>((i) => fallback()), nocache);
             return ret;
         }
@@ -104,7 +104,7 @@ namespace MagicEastern.CachedFunc
                 Monitor.Enter(lockObj);
                 try
                 {
-                    if (cache.TryGetValue(key, funcID, out obj))
+                    if (!nocache && cache.TryGetValue(key, funcID, out obj))
                     {
                         return obj;
                     }

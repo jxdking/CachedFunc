@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MagicEastern.CachedFunc.Net45</id>
-    <version>1.1.2</version>
+    <version>2.0.0</version>
     <title>MagicEastern.CachedFunc.Net45</title>
     <authors>Kevin Jin</authors>
     <owners>Kevin Jin</owners>
@@ -11,5 +11,8 @@
     <description>A way to create a function which is able to cache previous results.</description>
     <copyright>Copyright 2017</copyright>
     <tags>Cache</tags>
+	<dependencies>
+		<dependency id="MagicEastern.CachedFunc.Base" version="2.0.0" />
+	</dependencies>
   </metadata>
 </package>

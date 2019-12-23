@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using MagicEastern.CachedFunc.Base;
+﻿using MagicEastern.CachedFunc.Base;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MagicEastern.CachedFunc.Core
 {
@@ -19,11 +19,13 @@ namespace MagicEastern.CachedFunc.Core
             };
         }
 
-        public bool TryGetValue(TKey key, int funcID, out TValue val) {
+        public bool TryGetValue(TKey key, int funcID, out TValue val)
+        {
             return _cache.TryGetValue<TValue>(new CacheKey<TKey>(funcID, key), out val);
         }
 
-        public void Add(TKey key, int funcID, TValue val) {
+        public void Add(TKey key, int funcID, TValue val)
+        {
             _cache.Set<TValue>(new CacheKey<TKey>(funcID, key), val, _options);
         }
     }

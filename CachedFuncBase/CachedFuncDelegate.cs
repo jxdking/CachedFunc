@@ -31,7 +31,9 @@ namespace MagicEastern.CachedFunc
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TResult"></typeparam>
     /// <param name="input"></param>
-    /// <param name="fallback">This will be called when cache is not found. If fallback is null, the default func that passed in CachedFuncBase.Create() will be called.</param>
+    /// <param name="fallback">
+    /// This will be called when cache is not found. If fallback is null, the default func that passed in CachedFuncBase.Create() will be called, when cache is not found.
+    /// </param>
     /// <param name="nocache"></param>
     /// <returns></returns>
     /// <exception cref="System.ArgumentNullException">Thrown when cache value is not found and both fallback and func are null. func is the function that is passed in during CachedFuncBase.Create(). </exception>
