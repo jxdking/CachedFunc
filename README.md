@@ -20,7 +20,7 @@ static int SlowFunc(int n) {
 ```
 Starting from version 2.0.0, I added some extension method on Func<> delegate for ease of use. You can create a cached function from Func<> directly.
 
-```
+```c#
 CachedFunc<int, int> cachedFunc = ((Func<int>)SlowFunc).ToCachedFunc(
     new CachedFuncOptions { 
         AbsoluteExpirationRelativeToNow = new TimeSpan(1, 0, 0) 
@@ -30,6 +30,8 @@ CachedFunc<int, int> cachedFunc = ((Func<int>)SlowFunc).ToCachedFunc(
 
 Then, you have a cached function. Call this function in the same way as the orignal function.
 
-```
+```c#
 int result = cachedFunc(12345);
 ```
+
+See all available extension methods at [FuncExt.cs](https://github.com/jxdking/CachedFunc/blob/master/CachedFuncCore/FuncExt.cs)
