@@ -1,4 +1,5 @@
-# CachedFunc
+# CachedFunc 
+**[Deprecated, use CachedFunc2 instead]**
 
 Provide a way to create a function that can cache results of previous runs. 
 
